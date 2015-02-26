@@ -6,6 +6,16 @@
 *.user
 *.sln.docstates
 
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
