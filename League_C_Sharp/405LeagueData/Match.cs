@@ -17,6 +17,70 @@
         public string queueType { get; set; }
         public int matchId { get; set; }
         public int matchDuration { get; set; }
+
+
+        // Returns a string delimited by delimiter
+        public string[] printCSVString(string delimiter)
+        {
+            string[] output = new string[participants.Length];
+            int curOutputLine = 0;
+
+            // Create a line for each player
+            for (int x = 0; x < participants.Length; x++)
+            {
+                // Match info
+                string curLine = this.ToString(delimiter);
+
+                // Participant ID and stuff
+                curLine += delimiter + participantIdentities[x].player.ToString(delimiter);
+
+                // Participant info
+                curLine += delimiter + participants[x].ToString(delimiter);
+
+                // In-game stats
+                curLine += delimiter + participants[x].stats.ToString(delimiter);
+
+                // Put the new line in the output array
+                output[curOutputLine] = curLine;
+                curOutputLine++;
+            }
+
+            return output;
+        }
+
+
+        // Returns a line for the header line of the csv
+        public static string getHeaderLine(string delimiter)
+        {
+            string[] output = new string[] {"matchId",
+                 "region",
+                 "matchType",
+                 "matchCreation",
+                 "matchMode",
+                 "season",
+                 "queueType",
+                 "matchDuration"
+            };
+            
+            return string.Join(delimiter, output) + delimiter + Player.getHeaderSection(delimiter) + delimiter + Participant.getHeaderSection(delimiter) + delimiter + Stats.getHeaderSection(delimiter);
+        }
+
+
+        // Returns the match statistics to the string
+        public string ToString(string delimiter)
+        {
+            string[] output = new string[] {matchId + "",
+                 region,
+                 matchType,
+                 matchCreation + "",
+                 matchMode,
+                 season,
+                 queueType,
+                 matchDuration + ""
+                };
+
+            return string.Join(delimiter, output);;
+        }
     }
 
     public class Participant
@@ -31,6 +95,33 @@
         public int teamId { get; set; }
         public string highestAchievedSeasonTier { get; set; }
         public int spell1Id { get; set; }
+
+        public static string getHeaderSection(string delimiter)
+        {
+            string[] output = new string[] {
+                "participantId", 
+                "championId", 
+                "championRole",
+                "teamId", 
+                "highestAchievedSeasonTier"
+            };
+
+            return string.Join(delimiter, output); ;
+        }
+
+        // Returns interesting stats from the participant class
+        public string ToString(string delimiter)
+        {
+            string[] output = new string[] {
+                participantId + "", 
+                championId + "", 
+                ChampionType.Champion_Roles[championId],    // Add in champion's role
+                teamId + "", 
+                highestAchievedSeasonTier
+            };
+
+            return string.Join(delimiter, output); ;
+        }
     }
 
     public class Stats
@@ -93,6 +184,136 @@
         public int trueDamageTaken { get; set; }
         public int neutralMinionsKilled { get; set; }
         public int combatPlayerScore { get; set; }
+
+        public static string getHeaderSection(string delimiter)
+        {
+            string[] output = new string[] {
+            "unrealKills", 
+        "item2", 
+        "item1", 
+        "totalDamageTaken", 
+        "item0", 
+        "pentaKills", 
+        "sightWardsBoughtInGame", 
+        "winner", 
+        "magicDamageDealt", 
+        "wardsKilled", 
+        "largestCriticalStrike", 
+        "trueDamageDealt", 
+        "doubleKills", 
+        "physicalDamageDealt", 
+        "tripleKills", 
+        "deaths", 
+        "firstBloodAssist", 
+        "magicDamageDealtToChampions", 
+        "assists", 
+        "visionWardsBoughtInGame", 
+        "totalTimeCrowdControlDealt", 
+        "champLevel", 
+        "physicalDamageTaken", 
+        "totalDamageDealt", 
+        "largestKillingSpree", 
+        "inhibitorKills", 
+        "minionsKilled", 
+        "towerKills", 
+        "physicalDamageDealtToChampions", 
+        "quadraKills", 
+        "goldSpent", 
+        "totalDamageDealtToChampions", 
+        "goldEarned", 
+        "neutralMinionsKilledTeamJungle", 
+        "firstBloodKill", 
+        "firstTowerKill", 
+        "wardsPlaced", 
+        "trueDamageDealtToChampions", 
+        "killingSprees", 
+        "firstInhibitorKill", 
+        "totalScoreRank", 
+        "totalUnitsHealed", 
+        "kills", 
+        "firstInhibitorAssist", 
+        "totalPlayerScore", 
+        "neutralMinionsKilledEnemyJungle", 
+        "magicDamageTaken", 
+        "largestMultiKill", 
+        "totalHeal", 
+        "item4", 
+        "item3", 
+        "objectivePlayerScore", 
+        "item6", 
+        "firstTowerAssist", 
+        "item5", 
+        "trueDamageTaken", 
+        "neutralMinionsKilled"
+            };
+
+            return string.Join(delimiter, output); ; 
+        }
+
+        public string ToString(string delimiter)
+        {
+            string[] output = new string[] {
+                        unrealKills + "", 
+        item2 + "", 
+        item1 + "", 
+        totalDamageTaken + "", 
+        item0 + "", 
+        pentaKills + "", 
+        sightWardsBoughtInGame + "", 
+        winner + "", 
+        magicDamageDealt + "", 
+        wardsKilled + "", 
+        largestCriticalStrike + "", 
+        trueDamageDealt + "", 
+        doubleKills + "", 
+        physicalDamageDealt + "", 
+        tripleKills + "", 
+        deaths + "", 
+        firstBloodAssist + "", 
+        magicDamageDealtToChampions + "", 
+        assists + "", 
+        visionWardsBoughtInGame + "", 
+        totalTimeCrowdControlDealt + "", 
+        champLevel + "", 
+        physicalDamageTaken + "", 
+        totalDamageDealt + "", 
+        largestKillingSpree + "", 
+        inhibitorKills + "", 
+        minionsKilled + "", 
+        towerKills + "", 
+        physicalDamageDealtToChampions + "", 
+        quadraKills + "", 
+        goldSpent + "", 
+        totalDamageDealtToChampions + "", 
+        goldEarned + "", 
+        neutralMinionsKilledTeamJungle + "", 
+        firstBloodKill + "", 
+        firstTowerKill + "", 
+        wardsPlaced + "", 
+        trueDamageDealtToChampions + "", 
+        killingSprees + "", 
+        firstInhibitorKill + "", 
+        totalScoreRank + "", 
+        totalUnitsHealed + "", 
+        kills + "", 
+        firstInhibitorAssist + "", 
+        totalPlayerScore + "", 
+        neutralMinionsKilledEnemyJungle + "", 
+        magicDamageTaken + "", 
+        largestMultiKill + "", 
+        totalHeal + "", 
+        item4 + "", 
+        item3 + "", 
+        objectivePlayerScore + "", 
+        item6 + "", 
+        firstTowerAssist + "", 
+        item5 + "", 
+        trueDamageTaken + "", 
+        neutralMinionsKilled + ""
+            };
+
+            return string.Join(delimiter, output); ;
+        }
     }
 
     public class Timeline
@@ -188,6 +409,27 @@
         public string matchHistoryUri { get; set; }
         public string summonerName { get; set; }
         public int summonerId { get; set; }
+
+        // Returns a line for the header line of the csv
+        public static string getHeaderSection(string delimiter)
+        {
+            string[] output = new string[] {"summonerId",
+                 "summonerName"
+            };
+
+            return string.Join(delimiter, output);
+        }
+
+
+        // Returns the match statistics to the string
+        public string ToString(string delimiter)
+        {
+            string[] output = new string[] {summonerId + "",
+                 summonerName
+                };
+
+            return string.Join(delimiter, output); ;
+        }
     }
 
     public class Team

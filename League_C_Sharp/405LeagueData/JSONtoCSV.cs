@@ -26,8 +26,6 @@ namespace _400_League_C_Sharp
             dataSet.ReadXml(xmlReader);
             //return single table inside of dataset
             var csv = dataSet.Tables[0].ToCSV(",");
-
-            int a = 1;
         }
 
         private static string ToCSV(this DataTable table, string delimator)
