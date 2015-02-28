@@ -35,6 +35,8 @@ namespace _400_League_C_Sharp
         static string[] keys = { "ffa09023-efd5-4bc1-bb8f-007dbfb25d04", "08baaaf9-f50f-4102-b291-c8567a7b96a6" };
         private static int curKeyIndex = 0;
 
+        int threadMillisecondSleepTime = 1000;  // How long we wait inbetween every API call. Used to bypass API call limits. Reduce to speed up querying.
+
         static Region NA = Region.na;
         static string API_key = "ffa09023-efd5-4bc1-bb8f-007dbfb25d04"; // deeceptor's key
 
@@ -44,7 +46,7 @@ namespace _400_League_C_Sharp
             Console.WriteLine("Program, GO!");
             //Match match = getMatch(12345);  // Use a breakpoint to look at the match object. It's beautiful!
 
-            createMatchCSV(1507660629, 200000, "test.csv", false);
+            createMatchCSV(1507660629, 1000, "test.csv", false);
 
             while (true) { }
         }
@@ -56,7 +58,7 @@ namespace _400_League_C_Sharp
         public static bool isMatchAcceptable(Match match)
         {
             // Fail cases
-            if (match.matchType != "MATCHED_GAME" || match.matchMode != "CLASSIC" || match.season != "SEASON2014")
+            if (false)//match.season != "SEASON2014")//match.matchType != "MATCHED_GAME" || match.matchMode != "CLASSIC" || match.season != "SEASON2014")
                 return false;   // If fail, this match is not suitable
 
             return true;
@@ -108,6 +110,7 @@ namespace _400_League_C_Sharp
             string delimiter = ",";
 
             Console.WriteLine("Operating on file " + filePath);
+            bool lastSucceeded = false;
 
             // Not the most efficient way of doing this, but since we're capped by their API call limits, computation time in-program
             // is of no consequence
@@ -122,6 +125,12 @@ namespace _400_League_C_Sharp
 
                 for (int curID = startingMatchNumber; curID < endMatchID; curID++)
                 {
+                    if (lastSucceeded)
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                    }
+                    lastSucceeded = false;
+
                     // If this fails, simply look for the next match
                     try
                     {
@@ -140,8 +149,9 @@ namespace _400_League_C_Sharp
                             writer.WriteLine(s);       //string.Join(delimiter, output[index]));
                         }
 
-                        Console.WriteLine("Printing match " + curID);
                         matchesPrinted++;
+                        Console.WriteLine("Printing match ID " + curID + ", the " + matchesPrinted + " sucessfully printed match");
+                        lastSucceeded = true;
                     }
                     catch (Exception e) 
                     { 
