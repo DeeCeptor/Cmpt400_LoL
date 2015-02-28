@@ -1,0 +1,8 @@
+Modify file Program.cs:
+	Change threadMillisecondSleepTime to slow down/speed up API calls.
+	Change parameters for createMatchCSV to get desired results
+		- make numMatches an extremely high number, as matchID's seem to skip hugely.
+	startingMatchNumber specifies the first match we look at, then looks at the next numMatches matchID's
+	change isMatchAcceptable function to filter out undesirable matches
+
+Modify Matches.cs to change the attributes recorded into CSV by changing each ToString and getHeaderSection function
