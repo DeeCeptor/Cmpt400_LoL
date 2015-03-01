@@ -46,7 +46,7 @@ namespace _400_League_C_Sharp
             Console.WriteLine("Program, GO!");
             //Match match = getMatch(12345);  // Use a breakpoint to look at the match object. It's beautiful!
 
-            createMatchCSV(1507660629, 1000, "test.csv", false);
+            createMatchCSV(1507660629, 50000, "test.csv", false);
 
             while (true) { }
         }
