@@ -32,7 +32,9 @@ namespace _400_League_C_Sharp
         // Specific match
         private static string specific_match_url = "https://na.api.pvp.net/api/lol/na/v2.2/match/";
 
-        static string[] keys = { "ffa09023-efd5-4bc1-bb8f-007dbfb25d04", "08baaaf9-f50f-4102-b291-c8567a7b96a6" };
+        static string[] keys = { "ffa09023-efd5-4bc1-bb8f-007dbfb25d04",    // Michael's
+                                 "08baaaf9-f50f-4102-b291-c8567a7b96a6",    // Kevin's
+                                 "6a8a929c-385b-4ae2-a800-15bffaee398a" };  // Mike B.'s
         private static int curKeyIndex = 0;
 
         int threadMillisecondSleepTime = 1000;  // How long we wait inbetween every API call. Used to bypass API call limits. Reduce to speed up querying.
